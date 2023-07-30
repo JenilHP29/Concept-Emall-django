@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block script%}
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        let but = document.getElementById("but");
+        let video = document.getElementById("vid");
+        let mediaDevices = navigator.mediaDevices;
+        vid.muted = true;
+        but.addEventListener("click", () => {
+ 
+            // Accessing the user camera and video.
+            mediaDevices
+                .getUserMedia({
+                    video: true,
+                    audio: true,
+                })
+                .then((stream) => {
+ 
+                    // Changing the source of video to current stream.
+                    video.srcObject = stream;
+                    video.addEventListener("loadedmetadata", () => {
+                        video.play();
+                    });
+                })
+                .catch(alert);
+        });
+    });
+</script>
+<style>
+    #live {
+        margin-left:500px;
+        width: 500px;
+        height: 500px ;
+        border: 2px solid black;
+        position: relative;
+    }
+ 
+    #vid {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    body{
+        background-color:#263C97;
+    }
+    
+</style>
+{% endblock %}
+{% block content %}
+<div id="live">
+    <video id="vid"></video>
+</div>
+<br />
+<center>
+<button id="but" class="tp-in-btn w-100" autoplay>
+    Open Scanner
+</button>
+</center>
+{% endblock %}
